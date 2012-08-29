@@ -1,0 +1,56 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaMachineApp", "MediaMachineApp\MediaMachineApp.csproj", "{AA9449ED-C060-49CC-9768-59CE655D4CB1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E47E8748-9FBE-4DB4-ABC5-45913904860E} = {E47E8748-9FBE-4DB4-ABC5-45913904860E}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaMachineSDK", "MediaMachineSDK\MediaMachineSDK.csproj", "{E47E8748-9FBE-4DB4-ABC5-45913904860E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaMachinePlugInDebug", "MediaMachinePlugInDebug\MediaMachinePlugInDebug.csproj", "{D7F8CAB0-13FB-4F13-94FD-ECF7D418DD86}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E47E8748-9FBE-4DB4-ABC5-45913904860E} = {E47E8748-9FBE-4DB4-ABC5-45913904860E}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaMachinePlugInDOS", "MediaMachinePlugInDOS\MediaMachinePlugInDOS.csproj", "{30BECAFD-09BE-4527-B414-3EBCE18DF675}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaMachinePlugInAGS", "MediaMachinePlugInAGS\MediaMachinePlugInAGS.csproj", "{572BC410-FEF2-440F-B5C7-71B67D05B5BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaMachinePlugInEMail", "MediaMachinePlugInEMail\MediaMachinePlugInEMail.csproj", "{B837DBD8-5505-46BB-810F-DBD5C1D5C425}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AA9449ED-C060-49CC-9768-59CE655D4CB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA9449ED-C060-49CC-9768-59CE655D4CB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA9449ED-C060-49CC-9768-59CE655D4CB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA9449ED-C060-49CC-9768-59CE655D4CB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E47E8748-9FBE-4DB4-ABC5-45913904860E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E47E8748-9FBE-4DB4-ABC5-45913904860E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E47E8748-9FBE-4DB4-ABC5-45913904860E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E47E8748-9FBE-4DB4-ABC5-45913904860E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7F8CAB0-13FB-4F13-94FD-ECF7D418DD86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7F8CAB0-13FB-4F13-94FD-ECF7D418DD86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7F8CAB0-13FB-4F13-94FD-ECF7D418DD86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7F8CAB0-13FB-4F13-94FD-ECF7D418DD86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30BECAFD-09BE-4527-B414-3EBCE18DF675}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30BECAFD-09BE-4527-B414-3EBCE18DF675}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30BECAFD-09BE-4527-B414-3EBCE18DF675}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30BECAFD-09BE-4527-B414-3EBCE18DF675}.Release|Any CPU.Build.0 = Release|Any CPU
+		{572BC410-FEF2-440F-B5C7-71B67D05B5BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{572BC410-FEF2-440F-B5C7-71B67D05B5BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{572BC410-FEF2-440F-B5C7-71B67D05B5BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{572BC410-FEF2-440F-B5C7-71B67D05B5BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B837DBD8-5505-46BB-810F-DBD5C1D5C425}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B837DBD8-5505-46BB-810F-DBD5C1D5C425}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B837DBD8-5505-46BB-810F-DBD5C1D5C425}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B837DBD8-5505-46BB-810F-DBD5C1D5C425}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

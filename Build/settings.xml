@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<!--
+	Sample script
+-->
+<settings>
+  <!-- global settings -->
+	<application>
+    <!-- property: scan delay for filesystem changes or use system events (set value to zero) -->
+    <property name="scandelay" value="5" />
+    <!-- property: timeout, default: 120 seconds. sets the job timeout value in seconds. if job takes more than specified time it will be terminated. -->
+		<property name="timeout" value="1200" />
+		<!-- property: wait_time, default: 5 seconds. sets the time that is waited before file is considered as ready to be processed. usually if file arrives from other server it takes a little time to transfer the file. keep this value atleast at 1 seconds. -->
+		<property name="wait_time" value="5"/>
+    <!-- property: ignore_time, default: 240 seconds. sets the time that is waited before file is considered as ignored by job processing -->
+    <property name="ignore_time" value="240" />
+  </application>
+  <!-- plugins -->
+  <plugins>
+    <plugin name="DEBUG" description="Debug" type="MediaMachine.Plugins.Debug.DebugPlugin, MediaMachinePlugInDebug" max_worktime="30" />
+    <plugin name="DOS" description="PC DOS Batch commands" type="MediaMachine.Plugins.DosPlugin, MediaMachinePlugInDOS" max_worktime="10400" />
+    <plugin name="EMAIL" description="Email" type="MediaMachine.Plugins.EMailPlugin, MediaMachinePlugInEMail" max_worktime="30" />
+  </plugins>
+  <!-- scripts -->
+  <scripts>
+    <script name="startup()">
+      <commands>
+        <command plugin="EMAIL">
+          <email smtp="smtp-server.localhost" from="do-not-reply@localhost" to="root@localhost"
+                 subject="%host%(%ip%) DIGIPAPER-DEV: Started at %datetime% (Notice)" ><![CDATA[%text%]]></email>
+        </command>
+      </commands>
+    </script>
+    <script name="shutdown()">
+      <commands>
+        <command plugin="EMAIL">
+          <email smtp="smtp-server.localhost" from="do-not-reply@localhost" to="root@localhost"
+                 subject="%host%(%ip%) DIGIPAPER-DEV: Stopped at %datetime% (Notice)"><![CDATA[%text%]]></email>
+        </command>
+      </commands>
+    </script>
+    <script name="alreadyrunning()">
+      <commands>
+        <command plugin="EMAIL">
+          <email smtp="smtp-server.localhost" from="do-not-reply@localhost" to="root@localhost"
+                 subject="%host%(%ip%) DIGIPAPER-DEV: Is already running at %datetime% (Notice)"><![CDATA[%text%]]></email>
+        </command>
+      </commands>
+    </script>
+    <script name="daily()">
+      <commands>
+        <command plugin="EMAIL">
+          <email smtp="smtp-server.localhost" from="do-not-reply@localhost" to="root@localhost"
+                 subject="%host%(%ip%) DIGIPAPER-DEV: Daily raport %datetime% (Notice)"><![CDATA[%text%]]></email>
+        </command>
+      </commands>
+    </script>
+    <script name="fatalerror()">
+      <commands>
+        <command plugin="EMAIL">
+          <email smtp="smtp-server.localhost" from="do-not-reply@localhost" to="root@localhost"
+                 subject="%host%(%ip%) DIGIPAPER-DEV: Fatal Error issued while processing %datetime% (Notice)"><![CDATA[%text%]]></email>
+        </command>
+      </commands>
+    </script>
+    <script name="warning()">
+      <commands>
+        <command plugin="EMAIL">
+          <email smtp="smtp-server.localhost" from="do-not-reply@localhost" to="root@localhost"
+                 subject="%host%(%ip%) DIGIPAPER-DEV: Warning issued while processing %datetime% (Notice)"><![CDATA[%text%]]></email>
+        </command>
+      </commands>
+    </script>
+    <script name="settingschanged()">
+      <commands>
+        <command plugin="EMAIL">
+          <email smtp="smtp-server.localhost" from="do-not-reply@localhost" to="root@localhost"
+                 subject="%host%(%ip%) DIGIPAPER-DEV: Settings changed %datetime% (Notice)"><![CDATA[%text%]]></email>
+        </command>
+      </commands>
+    </script>
+    <script name="crashed()">
+      <commands>
+        <command plugin="EMAIL">
+          <email smtp="smtp-server.localhost" from="do-not-reply@localhost" to="root@localhost"
+                 subject="%host%(%ip%) DIGIPAPER-DEV: Program crash detected %datetime% (Notice)"><![CDATA[%text%]]></email>
+        </command>
+      </commands>
+    </script>
+    <script name="unplannedshutdown()">
+      <commands>
+        <command plugin="EMAIL">
+          <email smtp="smtp-server.localhost" from="do-not-reply@localhost" to="root@localhost"
+                 subject="%host%(%ip%) DIGIPAPER-DEV: Unplanned shutdown detected %datetime% (Notice)"><![CDATA[%text%]]></email>
+        </command>
+      </commands>
+    </script>
+  </scripts>
+  <!-- jobs -->
+  <jobs>  
+    <!--
+
+      DIGIPAPER
+      
+      In:
+          .../in/[FILENAME].PDF
+      
+      Out:
+          in/[FILENAME].PDF --> work/[FILENAME]/[FILENAME].PDF (for processing)
+	  work/[FILENAME]/.PDF --> out/[FiLENAME].PDF
+
+      Subfolders: No
+      Filter: *.PDF
+      Xml-required: NO
+      Extensions accepted: pdf
+
+      metadata*: NO
+     
+    -->
+    <job path="p:\dev\in" subfolders="no" name="DIGIPAPER" require_xml="false" require_ext="pdf">
+      <parameters>
+        <parameter name="target.base" value="p:\dev" />
+        <parameter name="target.file" value="%source.file%" />        
+        <parameter name="support.path" value="c:\digipaper\bin\support" />
+        <parameter name="error.path" value="p:\dev\error" />
+      </parameters>
+      <commands>
+        <command plugin="DOS">
+          <![CDATA[
+          <commands>
+	    <command action="run" cmd="%support.path%\mkdir.bat" args="%target.base%\work\%target.file%" />
+	    <command action="run" cmd="%support.path%\mkdir.bat" args="%target.base%\out\%target.file%" />
+	    <command action="move" source="%source%" target="%target.base%\work\%target.file%\%target.file%.pdf" overwrite="true" />
+            <command action="run" cmd="%support.path%\digipaper.bat" args='"%target.base%\work\%target.file%" "%target.base%\out\%target.file%" "%target.base%\out\%target.file%\log.txt" "%error.path%\%target.file%.error" %target.file%' />
+	    <!--<command action="move" source="%target.base%\work\%target.file%\%target.file%.pdf" target="%target.base%\out\%target.file%.pdf" overwrite="true" />-->
+	    <command action="run" cmd="%support.path%\rmfile.bat" args="%target.base%\work\%target.file%\%target.file%.pdf" />
+	    <command action="run" cmd="%support.path%\rmdir.bat" args="%target.base%\work\%target.file%" />
+	    <command action="run" cmd="%support.path%\rmdir.bat" args="%target.base%\out\%target.file%" />
+          </commands>]]>
+        </command>
+      </commands>
+    </job>
+  </jobs>
+</settings>
